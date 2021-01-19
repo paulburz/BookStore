@@ -37,7 +37,7 @@ namespace BookStore.Pages.Books
             {
                 return NotFound();
             }
-           ViewData["PublisherID"] = new SelectList(_context.Publisher, "Id", "Id");
+            ViewData["PublisherName"] = new SelectList(_context.Set<Publisher>(), "Id", "PublisherName");
             return Page();
         }
 
