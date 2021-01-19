@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,5 +24,7 @@ namespace BookStore.Models
         public int PublisherID { get; set; }
 
         public Publisher Publisher { get; set; } //navigation property
+
+        public ICollection<BookCategory> BookCategories { get; set; }
     }
 }
