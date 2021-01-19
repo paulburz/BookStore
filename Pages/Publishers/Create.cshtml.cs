@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using BookStore.Data;
 using BookStore.Models;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace BookStore.Pages.Publishers
 {
     public class CreateModel : PageModel
@@ -30,6 +32,12 @@ namespace BookStore.Pages.Publishers
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            if (await _context.Publisher.Where(c => string.Equals(c.PublisherName, Publisher.PublisherName)).FirstOrDefaultAsync() != null)
+            {
+                ModelState.AddModelError("Publisher.PublisherName", "This Publisher Name Already Exists");
+                return Page();
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();

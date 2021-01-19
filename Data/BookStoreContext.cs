@@ -14,6 +14,17 @@ namespace BookStore.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>()
+                .HasIndex(c => c.CategoryName)
+                .IsUnique();
+           
+            modelBuilder.Entity<Publisher>()
+                .HasIndex(p => p.PublisherName)
+                .IsUnique();
+        }
+
         public DbSet<BookStore.Models.Book> Book { get; set; }
 
         public DbSet<BookStore.Models.Publisher> Publisher { get; set; }

@@ -43,6 +43,11 @@ namespace BookStore.Pages.Publishers
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (await _context.Publisher.Where(c => string.Equals(c.PublisherName, Publisher.PublisherName)).FirstOrDefaultAsync() != null)
+            {
+                ModelState.AddModelError("Publisher.PublisherName", "This Publisher Name Already Exists");
+                return Page();
+            }
             if (!ModelState.IsValid)
             {
                 return Page();

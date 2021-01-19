@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using BookStore.Data;
 using BookStore.Models;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace BookStore.Pages.Categories
 {
     public class CreateModel : PageModel
@@ -30,6 +32,12 @@ namespace BookStore.Pages.Categories
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            if (await _context.Category.Where(c => string.Equals(c.CategoryName, Category.CategoryName)).FirstOrDefaultAsync() != null)
+            {
+                ModelState.AddModelError("Category.CategoryName", "This Category Name Already Exists");
+                return Page();
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();

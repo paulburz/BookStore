@@ -43,6 +43,13 @@ namespace BookStore.Pages.Categories
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (await _context.Category.Where(c => string.Equals(c.CategoryName, Category.CategoryName)).FirstOrDefaultAsync() != null)
+            {
+                var x = nameof(Category.CategoryName);
+                ModelState.AddModelError("Category.CategoryName", "This Category Name Already Exists");
+                return Page();
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
