@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookStore.Models
 {
@@ -6,6 +7,7 @@ namespace BookStore.Models
     {
         public int Id { get; set; }
 
+        [Display(Name = "Category Name")]
         public string CategoryName { get; set; }
 
         public ICollection<BookCategory> BookCategories { get; set; }

@@ -38,8 +38,8 @@ namespace BookStore.Pages.BookCategories
             {
                 return NotFound();
             }
-           ViewData["BookID"] = new SelectList(_context.Book, "Id", "Id");
-           ViewData["CategoryID"] = new SelectList(_context.Set<Category>(), "Id", "Id");
+           ViewData["BookID"] = new SelectList(_context.Book, "Id", "Title");
+           ViewData["CategoryID"] = new SelectList(_context.Set<Category>(), "Id", "CategoryName");
             return Page();
         }
 
