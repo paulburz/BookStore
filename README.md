@@ -1,2 +1,2 @@
 # BookStore
-##Project for University in Razor Pages
+## Project for University in Razor Pages
