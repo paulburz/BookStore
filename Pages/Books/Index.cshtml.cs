@@ -23,7 +23,8 @@ namespace BookStore.Pages.Books
 
         public async Task OnGetAsync()
         {
-            Book = await _context.Book.ToListAsync();
+            Book = await _context.Book
+                .Include(b => b.Publisher).ToListAsync();
         }
     }
 }

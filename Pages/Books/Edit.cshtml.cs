@@ -30,12 +30,14 @@ namespace BookStore.Pages.Books
                 return NotFound();
             }
 
-            Book = await _context.Book.FirstOrDefaultAsync(m => m.Id == id);
+            Book = await _context.Book
+                .Include(b => b.Publisher).FirstOrDefaultAsync(m => m.Id == id);
 
             if (Book == null)
             {
                 return NotFound();
             }
+           ViewData["PublisherID"] = new SelectList(_context.Publisher, "Id", "Id");
             return Page();
         }
 

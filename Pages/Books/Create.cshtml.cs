@@ -21,6 +21,7 @@ namespace BookStore.Pages.Books
 
         public IActionResult OnGet()
         {
+        ViewData["PublisherID"] = new SelectList(_context.Publisher, "Id", "Id");
             return Page();
         }
 
