@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BookStore.Data;
 using BookStore.Models;
 
-namespace BookStore.Pages.BookCategories
+namespace BookStore.Pages.Categories
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace BookStore.Pages.BookCategories
         }
 
         [BindProperty]
-        public BookCategory BookCategory { get; set; }
+        public Category Category { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,11 +29,9 @@ namespace BookStore.Pages.BookCategories
                 return NotFound();
             }
 
-            BookCategory = await _context.BookCategory
-                .Include(b => b.Book)
-                .Include(b => b.Category).FirstOrDefaultAsync(m => m.Id == id);
+            Category = await _context.Category.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (BookCategory == null)
+            if (Category == null)
             {
                 return NotFound();
             }
@@ -47,11 +45,11 @@ namespace BookStore.Pages.BookCategories
                 return NotFound();
             }
 
-            BookCategory = await _context.BookCategory.FindAsync(id);
+            Category = await _context.Category.FindAsync(id);
 
-            if (BookCategory != null)
+            if (Category != null)
             {
-                _context.BookCategory.Remove(BookCategory);
+                _context.Category.Remove(Category);
                 await _context.SaveChangesAsync();
             }
 

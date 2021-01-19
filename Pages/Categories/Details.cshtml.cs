@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BookStore.Data;
 using BookStore.Models;
 
-namespace BookStore.Pages.BookCategories
+namespace BookStore.Pages.Categories
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace BookStore.Pages.BookCategories
             _context = context;
         }
 
-        public BookCategory BookCategory { get; set; }
+        public Category Category { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,11 +28,9 @@ namespace BookStore.Pages.BookCategories
                 return NotFound();
             }
 
-            BookCategory = await _context.BookCategory
-                .Include(b => b.Book)
-                .Include(b => b.Category).FirstOrDefaultAsync(m => m.Id == id);
+            Category = await _context.Category.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (BookCategory == null)
+            if (Category == null)
             {
                 return NotFound();
             }

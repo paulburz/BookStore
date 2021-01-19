@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using BookStore.Data;
 using BookStore.Models;
 
-namespace BookStore.Pages.BookCategories
+namespace BookStore.Pages.Categories
 {
     public class CreateModel : PageModel
     {
@@ -21,13 +21,11 @@ namespace BookStore.Pages.BookCategories
 
         public IActionResult OnGet()
         {
-        ViewData["BookID"] = new SelectList(_context.Book, "Id", "Id");
-        ViewData["CategoryID"] = new SelectList(_context.Set<Category>(), "Id", "Id");
             return Page();
         }
 
         [BindProperty]
-        public BookCategory BookCategory { get; set; }
+        public Category Category { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -37,7 +35,7 @@ namespace BookStore.Pages.BookCategories
                 return Page();
             }
 
-            _context.BookCategory.Add(BookCategory);
+            _context.Category.Add(Category);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

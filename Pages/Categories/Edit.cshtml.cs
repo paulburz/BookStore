@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using BookStore.Data;
 using BookStore.Models;
 
-namespace BookStore.Pages.BookCategories
+namespace BookStore.Pages.Categories
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace BookStore.Pages.BookCategories
         }
 
         [BindProperty]
-        public BookCategory BookCategory { get; set; }
+        public Category Category { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,16 +30,12 @@ namespace BookStore.Pages.BookCategories
                 return NotFound();
             }
 
-            BookCategory = await _context.BookCategory
-                .Include(b => b.Book)
-                .Include(b => b.Category).FirstOrDefaultAsync(m => m.Id == id);
+            Category = await _context.Category.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (BookCategory == null)
+            if (Category == null)
             {
                 return NotFound();
             }
-           ViewData["BookID"] = new SelectList(_context.Book, "Id", "Id");
-           ViewData["CategoryID"] = new SelectList(_context.Set<Category>(), "Id", "Id");
             return Page();
         }
 
@@ -52,7 +48,7 @@ namespace BookStore.Pages.BookCategories
                 return Page();
             }
 
-            _context.Attach(BookCategory).State = EntityState.Modified;
+            _context.Attach(Category).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +56,7 @@ namespace BookStore.Pages.BookCategories
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BookCategoryExists(BookCategory.Id))
+                if (!CategoryExists(Category.Id))
                 {
                     return NotFound();
                 }
@@ -73,9 +69,9 @@ namespace BookStore.Pages.BookCategories
             return RedirectToPage("./Index");
         }
 
-        private bool BookCategoryExists(int id)
+        private bool CategoryExists(int id)
         {
-            return _context.BookCategory.Any(e => e.Id == id);
+            return _context.Category.Any(e => e.Id == id);
         }
     }
 }

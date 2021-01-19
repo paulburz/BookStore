@@ -19,5 +19,7 @@ namespace BookStore.Data
         public DbSet<BookStore.Models.Publisher> Publisher { get; set; }
 
         public DbSet<BookStore.Models.BookCategory> BookCategory { get; set; }
+
+        public DbSet<BookStore.Models.Category> Category { get; set; }
     }
 }

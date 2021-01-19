@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-
+using BookStore.Data;
 using BookStore.Models;
 
-namespace BookStore.Pages.BookCategories
+namespace BookStore.Pages.Categories
 {
     public class IndexModel : PageModel
     {
@@ -17,13 +19,11 @@ namespace BookStore.Pages.BookCategories
             _context = context;
         }
 
-        public IList<BookCategory> BookCategory { get;set; }
+        public IList<Category> Category { get;set; }
 
         public async Task OnGetAsync()
         {
-            BookCategory = await _context.BookCategory
-                .Include(b => b.Book)
-                .Include(b => b.Category).ToListAsync();
+            Category = await _context.Category.ToListAsync();
         }
     }
 }
